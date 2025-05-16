@@ -33,7 +33,7 @@ GitHub: [@libasnyder17](https://github.com/libasnyder17)
 
 **Daniel Bagroff** 
 Computer Engineering Student | Electrochemistry Research: Experimental, Programming, & Part Controls 
-GitHub: [@ponika](https://github.com/poninka)
+GitHub: [@poninka](https://github.com/poninka)
 
 **Draisy Jakubowicz**
 Computer/Data Science Student | Electrochemistry Research: Experimental & Programming 
