@@ -6,24 +6,23 @@
 %Moshe Kin
 % Description: A GUI interface for data import, model fitting, plotting, and electrolyte recommendations
 % Takes raw chronoamperometry data and then instantly fits it to a custom model from RC equation and cottrell equation
-% in order to recommend the most suitable electrolyte and how much of it to
-% use.
-%  Next step: scale it tweak it and even add more to the model equation. 
+% in order to recommend the most suitable electrolyte and how much of it to use.
+%  Next steps: scale the interface, tweak the parameters, and expand the model functionality.
 
 function chronoamperometry_gui_submission
     % Create window dimensions
     f = figure('Name', 'Chronoamperometry GUI', 'Position', [100 100 700 400]);
 
-    % UI Controls these are all the buttons and options in my Gui the
-    % numbers are dimensions, and then the electrolytes i made as a string
-    % so it can be a dropdown menue
+    %Create the main GUI window with specified size and name
+    % These buttons let users load data, fit it to a model, and get electrolyte recommendations
+    % Electrolyte options are listed in a dropdown menu 
     uicontrol(f, 'Style', 'pushbutton', 'String', 'Load .xlsx Data', 'Position', [50 340 120 30], 'Callback', @load_data);
     uicontrol(f, 'Style', 'pushbutton', 'String', 'Fit + Plot Model', 'Position', [200 340 120 30], 'Callback', @fit_plot);
     uicontrol(f, 'Style', 'pushbutton', 'String', 'Recommend Electrolyte', 'Position', [350 340 150 30], 'Callback', @recommend);
 
     uicontrol(f, 'Style', 'text', 'Position', [50 300 150 20], 'String', 'Select Electrolyte:');
-    % i'm keeping because i know i need this to use this when i fix up my
-    % model and i don't feel like having to rewrite this
+    %These are the input fields for volume and concentration
+    % Used later to calculate how much of the recommended electrolyte to use
     dropdown = uicontrol(f, 'Style', 'popupmenu', 'String', {'NADH', 'Ascorbate', 'Hydroquinone', 'CytochromeC', 'Glutathione', 'Dithionite'}, 'Position', [200 300 150 25]);
 
     uicontrol(f, 'Style', 'text', 'Position', [50 260 100 20], 'String', 'Volume (mL):');
@@ -51,7 +50,7 @@ function chronoamperometry_gui_submission
         time = time(isfinite(time) & time > 0);%removes any bad data from time
         current = current(1:length(time));%now adjusts current to match time
         
-        msgbox('Data loaded successfully');%will let u know if its loaded right
+        msgbox('Data loaded successfully');
     end
 
     % Fit + Plot
@@ -60,7 +59,7 @@ function chronoamperometry_gui_submission
             msgbox('Please load data first'); return; %will stop loop if file empty
         end
         F = 96485; A = 0.0314; C = 2e-7;
-        %defines a model using my two equations that'll predict current
+        %defines a model using the two equations we modeled that'll predict current
         %over time with 5 different parameters where x0 is the initial
         %guess and ib is the lower bound and ub is upper bound
         model = @(p, t) p(2) + (p(1) - p(2)) .* exp(-t / p(3)) + (p(4) * F * A * C * sqrt(p(5))) ./ sqrt(pi * t);
@@ -84,12 +83,12 @@ function chronoamperometry_gui_submission
             msgbox('Fit the model first'); return;
         end 
         %this loop is important because it needs a fitted model for the diffusion coefficient
-        %if i didnt fit something itll stop the code
+        %if nothing is fitted itll stop the code
         D_fit = fit_params(5);
         D_dict = struct('NADH', 6.7e-6, 'Ascorbate', 6.46e-6, 'Hydroquinone', 5.05e-4, 'CytochromeC', 2.5e-7, 'Glutathione', 3.1e-6, 'Dithionite', 2.9e-6);
         MW = struct('NADH', 663.43, 'Ascorbate', 176.12, 'Hydroquinone', 110.11, 'CytochromeC', 12000, 'Glutathione', 307.32, 'Dithionite', 174.12);
         %the 5th parameter in the equation is the diffusion coefficient in
-        %the equation, so it pulls that out and compares that with my
+        %the equation, so it pulls that out and compares that with are predefined
         %dictionary above
         choices = fieldnames(D_dict);
         
@@ -97,7 +96,7 @@ function chronoamperometry_gui_submission
         [rel_err, idx] = min(errs); %finds the smallest error and its index.
         sel = choices{idx}; %grabs the best-matching electrolyte name that fits the parameter
        
-        % find how much of the electrolyte i need using the standard mass
+        % find how much of the electrolyte needed using the standard mass
         % equation - so write a volume and concentration and then it'll
         % tell you the mass
         vol = str2double(volume_input.String);
