@@ -1,12 +1,14 @@
 
 % Chronoamperometry GUI App
+%Draisy Jakubowitz
 %Liba Snyder
+%Daniel B
+%Moshe Kin
 % Description: A GUI interface for data import, model fitting, plotting, and electrolyte recommendations
 % Takes raw chronoamperometry data and then instantly fits it to a custom model from RC equation and cottrell equation
 % in order to recommend the most suitable electrolyte and how much of it to
 % use.
-% it runs now but i still want to scale it tweak it and even add more to
-% the model equation. 
+%  Next step: scale it tweak it and even add more to the model equation. 
 
 function chronoamperometry_gui_submission
     % Create window dimensions
