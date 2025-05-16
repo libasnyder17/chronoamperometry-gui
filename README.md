@@ -45,7 +45,7 @@ Natural & Physical Science Student | Electrochemistry Research: Experimental, Da
 GitHub: [@MosheKin](https://github.com/MosheKin)
 
 ## Research Supervision
-This project was completed under the guidance of **Dr. Kamille Woronowitcz**, Assistant Professor of Chemistry, Rockland Community College.  
+This project was completed under the guidance of **Dr. Kamil Woronowitcz**, Assistant Professor of Chemistry, Rockland Community College.  
 We gratefully acknowledge their mentorship and support throughout the development of this project.
 
 
