@@ -21,7 +21,7 @@ This tool loads `.xlsx` chronoamperometry data, fits it using the Cottrell equat
 
 ## Why This Project Matters
 
-This GUI was developed as part of a solar energy research project studying biological reaction centers graphene oxide. The goal is to improve the way we test and select electrolytes -the electron carriers by speeding up analysis and reducing trial-and-error.
+This GUI was developed as part of a solar energy research project involving biological reaction center proteins interfaced with graphene oxide, a conductive material, to generate electric current. The goal is to improve how we test and select electrolytes—the electron carriers between the RC and GO—by reducing reliance on trial-and-error methods to optimize photocurrent output.
 
 ## Created By
 
